@@ -6,4 +6,4 @@ Group
   - Alex Howard  
   - Josh Maciak
   - Josh Gelenberg 
-  - Billy
+  - Billy Hinard
