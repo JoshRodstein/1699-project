@@ -1,30 +1,9 @@
 ## API Documentation
 
-Questions for Sharif:
+# App name
+cs1699_team_1
 
-  1. IF our triggers our our external in nature.. Such as weather (as in your example), then how do other apps trigger these events?
-    - How would the previous app in the app chain trigger event D, from example 1.
-  2. Should we define the intents etc. we wish to receive, or should we define the intents we wish to send?
-
-
-
-
-PITT Api
-
-Services
-  - Building / Facility Tracker
-    - add building/facility to watch list
-    - Location
-      - GPS, Google Maps API
-    - Capacity
-      - User sourced locations
-    - Facility Info
-      - Equipment available
-      - Quiet, Library, Etc..
-
-  - Note Sharing / Messaging
-    - Target Email, Messaging
-
+# PITT Api
 
 Triggering Events
   1. User enters study hall location radius
