@@ -6,8 +6,9 @@ cs1699_team_1
 # PITT Api
 
 Triggering Events
-  - 1) User enters Hillman library OR Cathedral
-    - Trigger:     Create Json by using gson library, send intent to activity
+  - ## 1) User enters Hillman library OR Cathedral
+    - **Trigger**: Create Json by using gson library,
+    - **Method**: send intent to activity
   ```
   class UserEnterEvent {
       String timestamp;
@@ -26,8 +27,9 @@ Triggering Events
   ```
 
     - User Can: check in and see building facts
-  - 2) Cathedral or Hillman opens/closes
-    - Trigger: open / close, send intent to activity
+  - ## 2) Cathedral or Hillman opens/closes
+    - **Trigger**: open / close, send -
+    - **Method**: intent to activity
     ```
     class BldgStateEvent {
         String building_name;
@@ -48,8 +50,9 @@ Triggering Events
     ```
     - User can: see list of open facilities
     - see hours of closed building
-  - 3) Campus Weather changes  
-    - Trigger: its raining or snowing on campus, Service
+  - ## 3) Campus Weather changes  
+    - **Trigger**: its raining or snowing on campus,
+    - **Method**: Service
       ```
       class WeatherEvent {
           String temperature; // in Fahrenheit
@@ -68,8 +71,9 @@ Triggering Events
       ```
     - User can: see current temperature
     - [openweathermap](https://openweathermap.org/api)
-  - 4) PITT Sports
-    - Trigger: Pitt sports game concludes, send broadcast
+  - ## 4) PITT Sports
+    - **Trigger**: Pitt sports game concludes,
+    - **Method**: Broadcast Reciever
       ```
       class SportEvent {
         String sport;
