@@ -37,7 +37,7 @@ Triggering Events
         String close_time;
 
         public BldgStateEvent(String n, String o, String c) {
-          this.building_name = t;
+          this.building_name = n;
           this.open_time = o;
           this.close_time = c;
         }
