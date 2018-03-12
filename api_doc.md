@@ -25,8 +25,10 @@ Triggering Events
     i.putExtra("info", info);
     startActivity(i);
     ```
-
-    - User can see building facts
+  
+    - User notified via snackback notification
+    - When snackback clicked
+      - User can see building facts
   - ## 2) Cathedral or Hillman opens/closes
     - **Trigger**: open / close, send -
     - **Method**: intent to activity
@@ -48,8 +50,11 @@ Triggering Events
     i.putExtra("info", info);
     startActivity(i);
     ```
-    - User can: see list of open facilities
-    - see hours of closed building
+    
+    - User notified via snackback notification
+    - When snackbar clicked
+      - User can: see list of open facilities
+      - see hours of closed building
   - ## 3) Campus Weather changes  
     - **Trigger**: its raining or snowing on campus,
     - **Method**: Service
@@ -69,8 +74,10 @@ Triggering Events
       i.putExtra("info", info);
       startService(i);
       ```
-    - User can: see current temperature
-    - [openweathermap](https://openweathermap.org/api)
+    - User notified via snackback notification
+    - When snackbar clicked
+      - User can: see current temperature
+      - [openweathermap](https://openweathermap.org/api)
   - ## 4) PITT Sports
     - **Trigger**: Pitt sports game concludes,
     - **Method**: Broadcast Reciever
@@ -97,6 +104,8 @@ Triggering Events
       sendBroadcast(i);
 
       ```
-    - User can: See sports score.
-    - [mysportsfeed](https://www.mysportsfeeds.com/feed-pricing/)
+    - User notified via snackback notification
+    - When snackbar clicked
+      - User can: See sports score.
+      - [mysportsfeed](https://www.mysportsfeeds.com/feed-pricing/)
     - [sportsradar](https://sportradar.us/)
