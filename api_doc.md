@@ -26,7 +26,7 @@ Triggering Events
     startActivity(i);
     ```
 
-    - User Can: check in and see building facts
+    - User can see building facts
   - ## 2) Cathedral or Hillman opens/closes
     - **Trigger**: open / close, send -
     - **Method**: intent to activity
