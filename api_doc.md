@@ -76,7 +76,7 @@ Triggering Events
       ```
     - User notified via snackback notification
     - When snackbar clicked
-      - User can: see current temperature
+      - User can: see current temperature and weather
       - [openweathermap](https://openweathermap.org/api)
   - ## 4) PITT Sports
     - **Trigger**: Pitt sports game concludes,
