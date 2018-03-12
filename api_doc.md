@@ -9,22 +9,22 @@ Triggering Events
   - ## 1) User enters Hillman library OR Cathedral
     - **Trigger**: Create Json by using gson library,
     - **Method**: send intent to activity
-  ```
-  class UserEnterEvent {
-      String timestamp;
-      String building_name;
+    ```
+    class UserEnterEvent {
+        String timestamp;
+        String building_name;
 
-      public UserEnterEvent(String t, String b) {
-        this.timestamp = t;
-        this.building_name = b;
-      }
-  }
-  String info = gson.toJson(new UserEnterEvent(String <unixstdtime>,
-      String <buildingname>));
-  Intent i = new Intent("team_1.trigger_1")
-  i.putExtra("info", info);
-  startActivity(i);
-  ```
+        public UserEnterEvent(String t, String b) {
+          this.timestamp = t;
+          this.building_name = b;
+        }
+    }
+    String info = gson.toJson(new UserEnterEvent(String <unixstdtime>,
+        String <buildingname>));
+    Intent i = new Intent("team_1.trigger_1")
+    i.putExtra("info", info);
+    startActivity(i);
+    ```
 
     - User Can: check in and see building facts
   - ## 2) Cathedral or Hillman opens/closes
