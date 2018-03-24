@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">PittAPI</string>
+    <string name="title_activity_building__info">Building_Info</string>
+    <string name="building_info">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur condimentum neque quis nibh ullamcorper, non vestibulum justo facilisis.
+        Etiam gravida facilisis maximus. Donec at nisl aliquam, sollicitudin turpis in, condimentum metus.
+        Fusce tempor bibendum hendrerit. Nulla posuere, nisl id semper pretium, purus erat faucibus dolor, ut hendrerit arcu libero eget magna.
+        Donec elementum, felis sed viverra tristique, nunc purus pulvinar tellus, et aliquet odio felis nec odio.
+        Ut congue felis eget leo posuere condimentum. Integer commodo leo vitae turpis vehicula, eget porta turpis faucibus.
+        Nunc auctor congue turpis, eu ultricies sem feugiat sed. Suspendisse id metus aliquam, rhoncus elit sed, scelerisque ante.
+        Morbi et scelerisque eros. Proin in eros dui. Mauris semper, mauris eu varius commodo, arcu lacus maximus est, vel scelerisque mi purus at lectus.
+        Mauris mollis nulla at urna faucibus lacinia. Suspendisse in ligula ultrices, ullamcorper lacus feugiat, sodales sem.
+        Donec laoreet libero eros, et porta diam iaculis et.
+    </string>
+    <string name="title_activity_pitt_scores">PittScores</string>
+    <string name="title_activity_BuildingTimes">BuildingTimes</string>
+    <string name="sports_title"> Pitt Scores</string>
+    <string name="vs"> vs. </string>
+    <string name="building_title"> Building Hours </string>
+</resources>
