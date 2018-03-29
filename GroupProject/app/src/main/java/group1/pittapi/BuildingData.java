@@ -8,6 +8,13 @@ public class BuildingData {
     private String buildingName = "";
     private String buildingHours = "";
 
+    public BuildingData (String name, String hours) {
+        setBuildingName(name);
+        setBuildingHours(hours);
+    }
+
+    public BuildingData () {}
+
     public void setBuildingName(String name) {
         this.buildingName = name;
     }

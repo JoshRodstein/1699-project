@@ -12,6 +12,9 @@
             android:name=".Building_Info"
             android:label="@string/title_activity_building__info"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="team_1.trigger_1" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".PittScores"
@@ -26,6 +29,9 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="team_1.trigger_2" />
             </intent-filter>
         </activity>
     </application>
