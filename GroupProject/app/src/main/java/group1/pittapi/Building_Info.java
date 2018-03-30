@@ -25,7 +25,7 @@ public class Building_Info extends AppCompatActivity {
 
             // Depending on the value of uee.building_name we will show the appropriate info.
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
 

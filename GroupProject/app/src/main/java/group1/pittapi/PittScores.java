@@ -2,6 +2,7 @@ package group1.pittapi;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -13,9 +14,28 @@ public class PittScores extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pitt_scores);
 
-        ArrayList<ScoreData> scoreData = getScoreData();
+        ArrayList<ScoreData> scoreData;
 
         final ListView lv1 = (ListView) findViewById(R.id.scores_list_view);
+
+        try {
+            // Gets info of game
+            Bundle extras = getIntent().getExtras();
+            ScoreData sd = new ScoreData();
+            sd.setPittScore(Integer.parseInt(extras.getString("PittScore")));
+            sd.setOppScore(Integer.parseInt(extras.getString("OppScore")));
+            sd.setOppName(extras.getString("OppName"));
+
+            // Add game to list
+            scoreData = new ArrayList<>();
+            scoreData.add(sd);
+
+
+            // Here we may add more games that we have in storage.
+        } catch (NullPointerException e) {
+            scoreData = getScoreData();
+        }
+
         lv1.setAdapter(new ScoresAdapter(this, scoreData));
     }
 

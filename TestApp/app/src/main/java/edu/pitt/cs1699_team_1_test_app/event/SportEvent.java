@@ -18,7 +18,7 @@ public class SportEvent {
         this.opponent_name = opponent_name;
         this.result        = result;
         this.score         = score;
-        this.opponent_name = opponent_score;
+        this.opponent_score = opponent_score;
     }
 
     public static String toJsonString(SportEvent e) {
