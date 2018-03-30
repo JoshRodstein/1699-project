@@ -31,18 +31,24 @@ public class PittScores extends AppCompatActivity {
             sd.setOppScore(Integer.parseInt(extras.getString("OppScore")));
             sd.setOppName(extras.getString("OppName"));
 
+            //Shows dialog:
+            // Cancel button: closes this activity
+            // See More button: lets them view the scores we got from the intent
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Sports Update")
-                    .setMessage(String.format(Locale.US, "New update to game against %s.", sd.getOppName()));
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    .setMessage(
+                            String.format(Locale.US,
+                                    "New update to %s game against %s.",
+                                    extras.getString("Sport"), sd.getOppName()));
+            builder.setPositiveButton("See More", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finishWrapper();
-                    dialog.dismiss();
-                }
-            }).setPositiveButton("See More", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
                 }
             });
