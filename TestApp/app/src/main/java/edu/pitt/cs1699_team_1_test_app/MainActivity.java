@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         intent.setComponent(new ComponentName(APP_PACKAGE_NAME, BROADCAST_RECEIVER_CLASS_NAME));
         intent.putExtra("info", json);
 
+        sendBroadcast(intent);
         Toast.makeText(this, "Sent trigger 4!", Toast.LENGTH_SHORT).show();;
 
     }
