@@ -19,8 +19,8 @@ import edu.pitt.cs1699_team_1_test_app.event.SportEvent;
 import edu.pitt.cs1699_team_1_test_app.event.UserEnterEvent;
 
 public class MainActivity extends AppCompatActivity implements ServiceConnection {
-    private static final String APP_PACKAGE_NAME = "edu.pitt.cs1699_team_1";
-    private static final String BROADCAST_RECEIVER_CLASS_NAME = "SOS_FILL_IN_LATER";
+    private static final String APP_PACKAGE_NAME = "group1.pittapi";
+    private static final String BROADCAST_RECEIVER_CLASS_NAME = "group1.pittapi.SportsReceiver";
     private static final String ACTION_TRIGGER1 = "team_1.trigger_1";
     private static final String ACTION_TRIGGER2 = "team_1.trigger_2";
     private static final String ACTION_TRIGGER3 = "team_1.trigger_3";
