@@ -19,8 +19,8 @@ import edu.pitt.cs1699_team_1_test_app.event.SportEvent;
 import edu.pitt.cs1699_team_1_test_app.event.UserEnterEvent;
 
 public class MainActivity extends AppCompatActivity implements ServiceConnection {
-    private static final String APP_PACKAGE_NAME = "edu.pitt.cs1699_team_1";
-    private static final String BROADCAST_RECEIVER_CLASS_NAME = "SOS_FILL_IN_LATER";
+    private static final String APP_PACKAGE_NAME = "group1.pittapi";
+    private static final String BROADCAST_RECEIVER_CLASS_NAME = "group1.pittapi.SportsReceiver";
     private static final String ACTION_TRIGGER1 = "team_1.trigger_1";
     private static final String ACTION_TRIGGER2 = "team_1.trigger_2";
     private static final String ACTION_TRIGGER3 = "team_1.trigger_3";
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         intent.putExtra("info", json);
         startActivity(intent);
 
-        Toast.makeText(this, "Sent trigger 1!", Toast.LENGTH_SHORT).show();;
+        Toast.makeText(this, "Sent trigger 1!", Toast.LENGTH_SHORT).show();
     }
     public void onTrigger2ButtonClicked(View v) {
         BuildingStateEvent buildingStateEvent = new BuildingStateEvent("HILLMAN", "7:00", "20:00");
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         intent.putExtra("info", json);
         startActivity(intent);
 
-        Toast.makeText(this, "Sent trigger 2!", Toast.LENGTH_SHORT).show();;
+        Toast.makeText(this, "Sent trigger 2!", Toast.LENGTH_SHORT).show();
     }
     public void onTrigger3ButtonClicked(View v) {
         PackageManager pm = getPackageManager();
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             bindService(intent, this, BIND_AUTO_CREATE);
         }
 
-        Toast.makeText(this, "Sent trigger 3!", Toast.LENGTH_SHORT).show();;
+        Toast.makeText(this, "Sent trigger 3!", Toast.LENGTH_SHORT).show();
     }
     public void onTrigger4ButtonClicked(View v) {
         SportEvent event = new SportEvent("FOOTBALL", "PENN_STATE",
@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         intent.setComponent(new ComponentName(APP_PACKAGE_NAME, BROADCAST_RECEIVER_CLASS_NAME));
         intent.putExtra("info", json);
 
-        Toast.makeText(this, "Sent trigger 4!", Toast.LENGTH_SHORT).show();;
+        sendBroadcast(intent);
+        Toast.makeText(this, "Sent trigger 4!", Toast.LENGTH_SHORT).show();
 
     }
 
