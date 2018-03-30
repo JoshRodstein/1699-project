@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         intent.putExtra("info", json);
         startActivity(intent);
 
-        Toast.makeText(this, "Sent trigger 1!", Toast.LENGTH_SHORT).show();;
+        Toast.makeText(this, "Sent trigger 1!", Toast.LENGTH_SHORT).show();
     }
     public void onTrigger2ButtonClicked(View v) {
         BuildingStateEvent buildingStateEvent = new BuildingStateEvent("HILLMAN", "7:00", "20:00");
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         intent.putExtra("info", json);
         startActivity(intent);
 
-        Toast.makeText(this, "Sent trigger 2!", Toast.LENGTH_SHORT).show();;
+        Toast.makeText(this, "Sent trigger 2!", Toast.LENGTH_SHORT).show();
     }
     public void onTrigger3ButtonClicked(View v) {
         PackageManager pm = getPackageManager();
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             bindService(intent, this, BIND_AUTO_CREATE);
         }
 
-        Toast.makeText(this, "Sent trigger 3!", Toast.LENGTH_SHORT).show();;
+        Toast.makeText(this, "Sent trigger 3!", Toast.LENGTH_SHORT).show();
     }
     public void onTrigger4ButtonClicked(View v) {
         SportEvent event = new SportEvent("FOOTBALL", "PENN_STATE",
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         intent.putExtra("info", json);
 
         sendBroadcast(intent);
-        Toast.makeText(this, "Sent trigger 4!", Toast.LENGTH_SHORT).show();;
+        Toast.makeText(this, "Sent trigger 4!", Toast.LENGTH_SHORT).show();
 
     }
 
