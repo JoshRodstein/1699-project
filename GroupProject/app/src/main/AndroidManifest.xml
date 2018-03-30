@@ -14,6 +14,8 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="team_1.trigger_1" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -32,6 +34,8 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="team_1.trigger_2" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>

@@ -74,7 +74,7 @@ public class BuildingTimes extends AppCompatActivity {
         String close_time;
 
         String hoursString() {
-            int openHour = Integer.parseInt(open_time.replaceAll("[\\D]", ""));
+            int openHour = Integer.parseInt(open_time.substring(0, open_time.indexOf(":")));
             int openMin = Integer.parseInt(open_time.substring(open_time.length() - 1, open_time.length()));
             boolean openPM = false;
             if (openHour > 12) {
@@ -83,7 +83,7 @@ public class BuildingTimes extends AppCompatActivity {
             }
 
 
-            int closeHour = Integer.parseInt(close_time.replaceAll("[\\D]",""));
+            int closeHour = Integer.parseInt(close_time.substring(0, close_time.indexOf(":")));
             int closeMin = Integer.parseInt(close_time.substring(close_time.length() - 1, close_time.length()));
             boolean closePM = false;
             if (closeHour > 12) {
