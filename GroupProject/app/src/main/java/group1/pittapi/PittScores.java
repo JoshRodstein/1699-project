@@ -1,11 +1,16 @@
 package group1.pittapi;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class PittScores extends AppCompatActivity {
 
@@ -25,6 +30,24 @@ public class PittScores extends AppCompatActivity {
             sd.setPittScore(Integer.parseInt(extras.getString("PittScore")));
             sd.setOppScore(Integer.parseInt(extras.getString("OppScore")));
             sd.setOppName(extras.getString("OppName"));
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Sports Update")
+                    .setMessage(String.format(Locale.US, "New update to game against %s.", sd.getOppName()));
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finishWrapper();
+                    dialog.dismiss();
+                }
+            }).setPositiveButton("See More", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
 
             // Add game to list
             scoreData = new ArrayList<>();
@@ -67,6 +90,10 @@ public class PittScores extends AppCompatActivity {
         results.add(sr1);
 
         return results;
+    }
+
+    private void finishWrapper() {
+        finish();
     }
 }
 
