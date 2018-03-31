@@ -36,7 +36,7 @@ public class BuildingTimes extends AppCompatActivity {
         }
 
         /*
-         * Here goes a for loop populating our list with more buildings, possibly from a local db.
+         * TODO: Here goes a for loop populating our list with more buildings, possibly from a local db.
          */
 
         lv1.setAdapter(new BuildingAdapter(this, buildingDataList)); // populates ListView

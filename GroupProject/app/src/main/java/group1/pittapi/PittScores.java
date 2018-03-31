@@ -1,13 +1,19 @@
 package group1.pittapi;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -35,11 +41,10 @@ public class PittScores extends AppCompatActivity {
             // Cancel button: closes this activity
             // See More button: lets them view the scores we got from the intent
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Sports Update")
-                    .setMessage(
-                            String.format(Locale.US,
-                                    "New update to %s game against %s.",
-                                    extras.getString("Sport"), sd.getOppName()));
+            builder.setTitle("Sports Update").setMessage(String.format(Locale.US,
+                    "New update to %s game against %s.",
+                    extras.getString("Sport"), sd.getOppName()));
+
             builder.setPositiveButton("See More", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -60,12 +65,53 @@ public class PittScores extends AppCompatActivity {
             scoreData.add(sd);
 
 
-            // Here we may add more games that we have in storage.
+            // TODO : Here we may add more games that we have in storage.
         } catch (NullPointerException e) {
+            // If this Activity is started by a badly formatted intent,
+            // it will show the default list.
             scoreData = getScoreData();
         }
 
         lv1.setAdapter(new ScoresAdapter(this, scoreData));
+
+
+        // Button for trigger
+        Button triggerButton = findViewById(R.id.sports_trigger_button);
+        triggerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (sportEventSoon()) {
+                    sendSportsTrigger();
+                } else {
+                    Toast.makeText(getApplicationContext(),"No upcoming games were found.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private boolean sportEventSoon() {
+        // todo implement
+        return true;
+    }
+
+    private void sendSportsTrigger() {
+        // todo implement
+        String gameType, gameDescription, time;
+
+        gameType = "Football";
+        gameDescription = "Pitt v. Penn State";
+        time = "2:00pm";
+
+
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName("com.pavel.cs1699_team22", "com.pavel.cs1699_team22.LogInActivity"));
+        Bundle bundle = new Bundle();
+        SportsEvent footballGame = new SportsEvent(gameType,gameDescription, time);
+        Gson gson = new Gson();
+        String game = gson.toJson(footballGame);
+        bundle.putString("game", game);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     private ArrayList<ScoreData> getScoreData(){
@@ -100,6 +146,21 @@ public class PittScores extends AppCompatActivity {
 
     private void finishWrapper() {
         finish();
+    }
+
+    private class SportsEvent
+    {
+        private String sportName; // The name of the sport... i.e Football or Basketball or any sport name
+        private String gameDescription; // The description of the game... Something like "Panthers vs Lions"
+        private String gameTime; // The time that the game starts
+
+        private SportsEvent(String name, String description, String time)
+        {
+            sportName = name;
+            gameDescription = description;
+            gameTime = time;
+        }
+
     }
 }
 
