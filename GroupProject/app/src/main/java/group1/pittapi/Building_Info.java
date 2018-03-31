@@ -23,7 +23,7 @@ public class Building_Info extends AppCompatActivity {
             Gson gson = new Gson();
             UserEnterEvent uee = gson.fromJson(info, UserEnterEvent.class);
 
-            // Depending on the value of uee.building_name we will show the appropriate info.
+            // TODO : Depending on the value of uee.building_name we will show the appropriate info.
         } catch (Exception e) {
             e.printStackTrace();
         }
