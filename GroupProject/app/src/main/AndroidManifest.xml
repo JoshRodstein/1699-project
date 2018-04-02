@@ -11,7 +11,13 @@
         <activity
             android:name=".Building_Info"
             android:label="@string/title_activity_building__info"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="team_1.trigger_1" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".PittScores"
             android:label="@string/title_activity_pitt_scores"
@@ -29,7 +35,21 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="team_1.trigger_2" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".SportsReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="team_1.trigger_4" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
