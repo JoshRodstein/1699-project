@@ -14,6 +14,7 @@
     </string>
     <string name="title_activity_pitt_scores">PittScores</string>
     <string name="title_activity_BuildingTimes">BuildingTimes</string>
+    <string name="title_activity_pitt_weather">PittWeather</string>
     <string name="sports_title"> Pitt Scores</string>
     <string name="vs"> vs. </string>
     <string name="building_title"> Building Hours </string>

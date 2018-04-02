@@ -21,24 +21,24 @@
         <activity
             android:name=".PittScores"
             android:label="@string/title_activity_pitt_scores"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".BuildingTimes"
             android:label="@string/title_activity_BuildingTimes"
             android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="team_1.trigger_2" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
-        <activity android:name=".Weather"
-            android:label="Weather"
+        <activity android:name=".PittWeather"
+            android:label="@string/title_activity_pitt_weather"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="team_1.trigger_2" />
-
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
