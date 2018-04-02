@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-public class Weather extends AppCompatActivity {
+public class PittWeather extends AppCompatActivity {
     /*
     sun = 0
     cloud = 1
