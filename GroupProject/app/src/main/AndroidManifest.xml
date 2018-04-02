@@ -11,16 +11,18 @@
         <activity
             android:name=".Building_Info"
             android:label="@string/title_activity_building__info"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".PittScores"
             android:label="@string/title_activity_pitt_scores"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".BuildingTimes"
             android:label="@string/title_activity_BuildingTimes"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity android:name=".Weather"
+            android:label="Weather"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
