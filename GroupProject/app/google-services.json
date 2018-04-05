@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "56618638968",
+    "firebase_url": "https://pittapi-ab672.firebaseio.com",
+    "project_id": "pittapi-ab672",
+    "storage_bucket": "pittapi-ab672.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56618638968:android:760d3f4c79c8a807",
+        "android_client_info": {
+          "package_name": "group1.pittapi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56618638968-fhab07uudl3kfb3lubve52qoccnnm5dc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "group1.pittapi",
+            "certificate_hash": "21d78f8829b9848695fc2edf26fc65fdde319d0a"
+          }
+        },
+        {
+          "client_id": "56618638968-d2h1ncsgktks97btpp3kjgn9bs7oq41q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjYXmzxj-4u2-WH1tFNlvEx4Sg_qNhxGM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56618638968-d2h1ncsgktks97btpp3kjgn9bs7oq41q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
