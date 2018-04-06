@@ -133,5 +133,17 @@ public class BuildingTimes extends AppCompatActivity {
                     closeHour, closeMin, closePM?"pm":"am");
         }
     }
+
+    public void onDestroy(){
+        super.onDestroy();
+        Log.w("ON_DESTROY", "Delete UserAuth");
+        if(mAuth.getCurrentUser() != null) {mAuth.getCurrentUser().delete();}
+    }
+
+    /*public void onStop(){
+        super.onStop();
+        Log.w("ON_STOP", "Delete UserAuth");
+        if(mAuth.getCurrentUser() != null) {mAuth.getCurrentUser().delete();}
+    }*/
 }
 

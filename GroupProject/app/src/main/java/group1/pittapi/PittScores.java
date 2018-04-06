@@ -27,42 +27,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 public class PittScores extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private final String LOGO_CHILD = "Team_Logos";
+    private final String LOGO_ROOT = "Team_Logo_URL";
     private final String DL_LOGO = "Download Logo form FB: ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pitt_scores);
-
-        // TODO: grab logos from Firebase
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference dbRef = database.getReference(LOGO_CHILD);
-
-        dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    // TODO: Store children in local Storage
-                }
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(DL_LOGO, "Value is: " + value);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read valu
-                Log.w(DL_LOGO, "Failed to read value.", error.toException());
-            }
-        });
 
 
 
@@ -93,6 +73,34 @@ public class PittScores extends AppCompatActivity {
         }  else {
             Log.w("Pitt Scores ANON: ", "signInAnonymously: USER SIGNED IN");
         }
+
+        // TODO: grab logos from Firebase
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference dbRef = database.getReference(LOGO_ROOT);
+        DatabaseReference accNode  = dbRef.child("ACC");
+
+        dbRef.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            HashMap<String, String> URL_Map = new HashMap<>();
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.w("In Event LIStener", "PRE DB GRAB");
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                    URL_Map.put(child.getKey(), child.getValue().toString());
+                    Log.w(DL_LOGO, child.getKey() + " : " + child.getValue().toString());
+                }
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read valu
+                Log.w(DL_LOGO, "Failed to read value.", error.toException());
+            }
+        });
 
 
         ArrayList<ScoreData> scoreData;
@@ -232,5 +240,17 @@ public class PittScores extends AppCompatActivity {
         }
 
     }
+
+    public void onDestroy(){
+        super.onDestroy();
+        Log.w("ON_DESTROY", "Delete UserAuth");
+        if(mAuth.getCurrentUser() != null) {mAuth.getCurrentUser().delete();}
+    }
+
+    /*public void onStop(){
+        super.onStop();
+        Log.w("ON_STOP", "Delete UserAuth");
+        if(mAuth.getCurrentUser() != null) {mAuth.getCurrentUser().delete();}
+    }*/
 }
 

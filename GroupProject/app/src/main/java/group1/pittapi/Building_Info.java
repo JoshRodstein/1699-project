@@ -49,7 +49,7 @@ public class Building_Info extends AppCompatActivity {
                         }
                     });
         } else {
-            Log.w("Pitt Building Info ANON: ", "signInAnonymously: USER SIGNED IN");
+            Log.w("Building Info ANON: ", "signInAnonymously: USER SIGNED IN");
         }
 
         setContentView(R.layout.activity_building__info);
@@ -71,4 +71,16 @@ public class Building_Info extends AppCompatActivity {
         String timestamp;
         String building_name;
     }
+
+    public void onDestroy(){
+        super.onDestroy();
+        Log.w("ON_DESTROY", "Delete UserAuth");
+        if(mAuth.getCurrentUser() != null) {mAuth.getCurrentUser().delete();}
+    }
+
+    /*public void onStop(){
+        super.onStop();
+        Log.w("ON_STOP", "Delete UserAuth");
+        if(mAuth.getCurrentUser() != null) {mAuth.getCurrentUser().delete();}
+    }*/
 }
