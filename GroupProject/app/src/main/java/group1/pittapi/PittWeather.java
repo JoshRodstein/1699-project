@@ -33,26 +33,30 @@ public class PittWeather extends AppCompatActivity {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        mAuth.signInAnonymously()
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.w("Pitt Weather ANON: ", "signInAnonymously:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("Pitt Weather ANON: ", "signInAnonymously:failure", task.getException());
-                            Toast.makeText(PittWeather.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
-                        }
+        if(currentUser == null) {
+            mAuth.signInAnonymously()
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.w("Pitt Weather ANON: ", "signInAnonymously:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                //updateUI(user);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("Pitt Weather ANON: ", "signInAnonymously:failure", task.getException());
+                                Toast.makeText(PittWeather.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                //updateUI(null);
+                            }
 
-                        // ...
-                    }
-                });
+                            // ...
+                        }
+                    });
+        }  else {
+            Log.w("Pitt Weather ANON: ", "signInAnonymously: USER SIGNED IN");
+        }
 
         weather = 3;
         switch (weather) {
@@ -73,5 +77,12 @@ public class PittWeather extends AppCompatActivity {
                 ((ImageView)findViewById(R.id.fade)).setBackgroundColor(Color.parseColor("#220000ff"));
                 break;
         }
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+
+        // signOut anon... Delete auth ?
+
     }
 }
