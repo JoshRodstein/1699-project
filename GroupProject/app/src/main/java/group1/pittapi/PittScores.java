@@ -2,7 +2,6 @@ package group1.pittapi;
 
 import android.app.AlertDialog;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,35 +43,7 @@ public class PittScores extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pitt_scores);
 
-
-
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if(currentUser == null) {
-            mAuth.signInAnonymously()
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.w("Pitt Weather ANON: ", "signInAnonymously:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                //updateUI(user);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("Pitt Weather ANON: ", "signInAnonymously:failure", task.getException());
-                                Toast.makeText(PittScores.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                                //updateUI(null);
-                            }
-
-                            // ...
-                        }
-                    });
-        }  else {
-            Log.w("Pitt Scores ANON: ", "signInAnonymously: USER SIGNED IN");
-        }
+        anonSignIn();
 
         // TODO: grab logos from Firebase
 
@@ -87,7 +58,7 @@ public class PittScores extends AppCompatActivity {
                 Log.w("In Event LIStener", "PRE DB GRAB");
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     URL_Map.put(child.getKey(), child.getValue().toString());
-                    Log.w(DL_LOGO, child.getKey() + " : " + child.getValue().toString());
+                    Log.w(DL_LOGO, child.getKey() + " : " + child.getValue().toString() + "\n");
                 }
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
@@ -167,6 +138,35 @@ public class PittScores extends AppCompatActivity {
         });
     }
 
+    public void anonSignIn(){
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null) {
+            mAuth.signInAnonymously()
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.w("Pitt Scores ANON: ", "signInAnonymously:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                //updateUI(user);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("Pitt Scores ANON: ", "signInAnonymously:failure", task.getException());
+                                Toast.makeText(PittScores.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                //updateUI(null);
+                            }
+
+                            // ...
+                        }
+                    });
+        } else {
+            Log.w("Building Info ANON: ", "signInAnonymously: USER SIGNED IN");
+        }
+    }
+
     private boolean sportEventSoon() {
         // todo implement
         return true;
@@ -241,16 +241,18 @@ public class PittScores extends AppCompatActivity {
 
     }
 
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         Log.w("ON_DESTROY", "Delete UserAuth");
-        if(mAuth.getCurrentUser() != null) {mAuth.getCurrentUser().delete();}
     }
 
-    /*public void onStop(){
+    public void onStop(){
         super.onStop();
-        Log.w("ON_STOP", "Delete UserAuth");
-        if(mAuth.getCurrentUser() != null) {mAuth.getCurrentUser().delete();}
-    }*/
+    }
+
+    public void onResume(){
+        super.onResume();
+    }
+
 }
 
