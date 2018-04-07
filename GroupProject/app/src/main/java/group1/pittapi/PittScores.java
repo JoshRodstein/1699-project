@@ -2,14 +2,17 @@ package group1.pittapi;
 
 import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -23,20 +26,27 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
-import java.net.URI;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
 public class PittScores extends AppCompatActivity {
-
+    boolean authOccurred;
     private FirebaseAuth mAuth;
     private final String LOGO_ROOT = "Team_Logo_URL";
     private final String DL_LOGO = "Download Logo form FB: ";
+    private String Key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,34 +54,7 @@ public class PittScores extends AppCompatActivity {
         setContentView(R.layout.activity_pitt_scores);
 
         anonSignIn();
-
-        //grab team logo URLs form Firebase
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference dbRef = database.getReference(LOGO_ROOT);
-        DatabaseReference accNode  = dbRef.child("ACC");
-
-        dbRef.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
-            HashMap<String, String> URL_Map = new HashMap<>();
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.w("In Event LIStener", "PRE DB GRAB");
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    URL_Map.put(child.getKey(), child.getValue().toString());
-                    Log.w(DL_LOGO, child.getKey() + " : " + child.getValue().toString() + "\n");
-                }
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-
-            }
-
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read valu
-                Log.w(DL_LOGO, "Failed to read value.", error.toException());
-            }
-        });
-
+        getLogoURLs();
 
         ArrayList<ScoreData> scoreData;
 
@@ -140,15 +123,18 @@ public class PittScores extends AppCompatActivity {
     public void anonSignIn(){
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        boolean authed;
         if(currentUser == null) {
             mAuth.signInAnonymously()
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.w("Pitt Scores ANON: ", "signInAnonymously:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                getLogoURLs();
                                 //updateUI(user);
                             } else {
                                 // If sign in fails, display a message to the user.
@@ -156,6 +142,7 @@ public class PittScores extends AppCompatActivity {
                                 Toast.makeText(PittScores.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
                                 //updateUI(null);
+
                             }
 
                             // ...
@@ -163,6 +150,94 @@ public class PittScores extends AppCompatActivity {
                     });
         } else {
             Log.w("Building Info ANON: ", "signInAnonymously: USER SIGNED IN");
+
+        }
+    }
+
+    public void getLogoURLs() {
+        //grab team logo URLs form Firebase
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference dbRef = database.getReference(LOGO_ROOT);
+        DatabaseReference accNode = dbRef.child("ACC").getRef();
+
+        accNode.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
+            ArrayList<KeyPair> URL_List = new ArrayList<>();
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.w("In Event LIStener", "PRE DB GRAB");
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    URL_List.add(new KeyPair(child.getKey(), child.getValue().toString()));
+                    Log.w(DL_LOGO, child.getKey() + " : " + child.getValue());
+                }
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+
+                try {
+                    String key, value;
+                    for(int i = 0; i < URL_List.size(); i++){
+                        key = URL_List.get(i).getKey();
+                        value = URL_List.get(i).getValue();
+                        Log.w("Value: ", String.valueOf(i) + "\n");
+                        URL url = new URL(value.toString());
+                        Key = key;
+                        new DownloadLogos().execute(key, value);
+                    }
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read valu
+                Log.w(DL_LOGO, "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    private class DownloadLogos extends AsyncTask<String, Void, Bitmap> {
+        protected void onPreExecute(){}
+
+        Bitmap bitmap = null;
+        @Override
+        protected Bitmap doInBackground(String... keyVal) {
+
+            Log.w("doInBackground:", keyVal[1].toString());
+            // for(int i = 0; i < url.length; i++){
+            try {
+                URL url = new URL(keyVal[1].toString());
+                bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                Key = keyVal[0];
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return bitmap;
+            //}
+            //return null;
+        }
+
+        protected void onPostExecute(Bitmap result){
+            Log.w("Save Image:", result.toString() + ":" + Key + ".png");
+            saveImage(getApplicationContext(), result, Key + ".png");
+
+            File file = getApplicationContext().getFileStreamPath(Key + ".png");
+            if (file.exists()) Log.w("file", Key + ".png exists!!!");
+        }
+
+    }
+
+    public void saveImage(Context context, Bitmap b, String imageName){
+        FileOutputStream foStream;
+        try {
+            foStream = context.openFileOutput(imageName, Context.MODE_PRIVATE);
+            b.compress(Bitmap.CompressFormat.PNG, 100, foStream);
+            foStream.close();
+        } catch (Exception e){
+            Log.d("saveImage", "Exception 2, Something went wrong!");
+            e.printStackTrace();
         }
     }
 
@@ -239,6 +314,8 @@ public class PittScores extends AppCompatActivity {
         }
 
     }
+
+
 
     public void onDestroy() {
         super.onDestroy();
