@@ -31,32 +31,7 @@ public class PittWeather extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if(currentUser == null) {
-            mAuth.signInAnonymously()
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.w("Pitt Weather ANON: ", "signInAnonymously:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                //updateUI(user);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("Pitt Weather ANON: ", "signInAnonymously:failure", task.getException());
-                                Toast.makeText(PittWeather.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                                //updateUI(null);
-                            }
-
-                            // ...
-                        }
-                    });
-        }  else {
-            Log.w("Pitt Weather ANON: ", "signInAnonymously: USER SIGNED IN");
-        }
+        anonSignIn();
 
         weather = 3;
         switch (weather) {
@@ -79,10 +54,46 @@ public class PittWeather extends AppCompatActivity {
         }
     }
 
+    public void anonSignIn(){
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null) {
+            mAuth.signInAnonymously()
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.w("Pitt Weather ANON: ", "signInAnonymously:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                //updateUI(user);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("Pitt Weather ANON: ", "signInAnonymously:failure", task.getException());
+                                Toast.makeText(PittWeather.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                //updateUI(null);
+                            }
+
+                            // ...
+                        }
+                    });
+        } else {
+            Log.w("Building Info ANON: ", "signInAnonymously: USER SIGNED IN");
+        }
+    }
+
     public void onDestroy(){
         super.onDestroy();
-
-        // signOut anon... Delete auth ?
-
+        Log.w("ON_DESTROY", "Delete UserAuth");
     }
+
+    public void onStop(){
+        super.onStop();
+    }
+
+    public void onResume(){
+        super.onResume();
+    }
+
 }

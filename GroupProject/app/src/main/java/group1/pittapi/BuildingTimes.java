@@ -1,5 +1,6 @@
 package group1.pittapi;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -27,33 +28,7 @@ public class BuildingTimes extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_building_times);
 
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if(currentUser == null) {
-            mAuth.signInAnonymously()
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.w("Pitt Weather ANON: ", "signInAnonymously:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                //updateUI(user);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("Pitt Weather ANON: ", "signInAnonymously:failure", task.getException());
-                                Toast.makeText(BuildingTimes.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                                //updateUI(null);
-                            }
-
-                            // ...
-                        }
-                    });
-        }  else {
-            Log.w("Pitt Building Times ANON: ", "signInAnonymously: USER SIGNED IN");
-        }
+        anonSignIn();
 
         final ListView lv1 = (ListView) findViewById(R.id.building_list_view); // gets listview
 
@@ -77,6 +52,35 @@ public class BuildingTimes extends AppCompatActivity {
          */
 
         lv1.setAdapter(new BuildingAdapter(this, buildingDataList)); // populates ListView
+    }
+
+    public void anonSignIn(){
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null) {
+            mAuth.signInAnonymously()
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.w("Building Times ANON: ", "signInAnonymously:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                //updateUI(user);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("Building Times ANON: ", "signInAnonymously:failure", task.getException());
+                                Toast.makeText(BuildingTimes.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                //updateUI(null);
+                            }
+
+                            // ...
+                        }
+                    });
+        } else {
+            Log.w("Building Info ANON: ", "signInAnonymously: USER SIGNED IN");
+        }
     }
 
     private ArrayList<BuildingData> getBuildingData(){
@@ -133,5 +137,20 @@ public class BuildingTimes extends AppCompatActivity {
                     closeHour, closeMin, closePM?"pm":"am");
         }
     }
+
+    public void onDestroy(){
+        super.onDestroy();
+        Log.w("ON_DESTROY", "Delete UserAuth");
+    }
+
+    public void onStop(){
+        super.onStop();
+
+    }
+
+    public void onResume(){
+        super.onResume();
+    }
+
 }
 

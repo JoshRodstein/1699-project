@@ -23,36 +23,9 @@ public class Building_Info extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-
-        if(currentUser == null) {
-            mAuth.signInAnonymously()
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.w("Pitt Weather ANON: ", "signInAnonymously:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                //updateUI(user);
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("Pitt Weather ANON: ", "signInAnonymously:failure", task.getException());
-                                Toast.makeText(Building_Info.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                                //updateUI(null);
-                            }
-
-                            // ...
-                        }
-                    });
-        } else {
-            Log.w("Pitt Building Info ANON: ", "signInAnonymously: USER SIGNED IN");
-        }
-
         setContentView(R.layout.activity_building__info);
+
+        anonSignIn();
 
         try {
             String info = getIntent().getExtras().getString("info");
@@ -67,8 +40,52 @@ public class Building_Info extends AppCompatActivity {
 
     }
 
+    public void anonSignIn(){
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser == null) {
+            mAuth.signInAnonymously()
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.w("Building Info ANON: ", "signInAnonymously:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                //updateUI(user);
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("Building Info ANON: ", "signInAnonymously:failure", task.getException());
+                                Toast.makeText(Building_Info.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
+                                //updateUI(null);
+                            }
+
+                            // ...
+                        }
+                    });
+        } else {
+            Log.w("Building Info ANON: ", "signInAnonymously: USER SIGNED IN");
+        }
+    }
+
     private class UserEnterEvent {
         String timestamp;
         String building_name;
     }
+
+    public void onDestroy(){
+        super.onDestroy();
+        Log.w("ON_DESTROY", "Delete UserAuth");
+    }
+
+    public void onStop(){
+        super.onStop();
+    }
+
+    public void onResume(){
+        super.onResume();
+    }
+
 }
