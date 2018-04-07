@@ -85,7 +85,6 @@ public class PittWeather extends AppCompatActivity {
 
     public void onDestroy(){
         super.onDestroy();
-        Log.w("ON_DESTROY", "Delete UserAuth");
     }
 
     public void onStop(){

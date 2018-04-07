@@ -45,8 +45,7 @@ public class PittScores extends AppCompatActivity {
 
         anonSignIn();
 
-        // TODO: grab logos from Firebase
-
+        //grab team logo URLs form Firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = database.getReference(LOGO_ROOT);
         DatabaseReference accNode  = dbRef.child("ACC");
@@ -243,7 +242,6 @@ public class PittScores extends AppCompatActivity {
 
     public void onDestroy() {
         super.onDestroy();
-        Log.w("ON_DESTROY", "Delete UserAuth");
     }
 
     public void onStop(){
