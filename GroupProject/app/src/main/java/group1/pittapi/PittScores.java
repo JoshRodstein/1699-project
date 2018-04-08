@@ -66,7 +66,11 @@ public class PittScores extends AppCompatActivity {
             ScoreData sd = new ScoreData();
             sd.setPittScore(Integer.parseInt(extras.getString("PittScore")));
             sd.setOppScore(Integer.parseInt(extras.getString("OppScore")));
-            sd.setOppName(extras.getString("OppName"));
+            try {
+                sd.setOppName(extras.getString("OppName"));
+            } catch (Exception e){
+                Log.w("SET_OPP_NAME", e.toString());
+            }
 
             //Shows dialog:
             // Cancel button: closes this activity
