@@ -35,4 +35,43 @@
         android:layout_height="wrap_content"
         android:onClick="onTrigger4ButtonClicked"
         android:text="Send Event 4" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <EditText
+        android:id="@+id/Sport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Sport" />
+
+    <EditText
+        android:id="@+id/OpponentName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Other Team" />
+
+    <EditText
+        android:id="@+id/PittScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Pitt Score" />
+
+    <EditText
+        android:id="@+id/OpponentScore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Opponent Score" />
+
 </LinearLayout>
