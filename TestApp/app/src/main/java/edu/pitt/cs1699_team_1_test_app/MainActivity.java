@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.Date;
@@ -67,8 +68,34 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         Toast.makeText(this, "Sent trigger 3!", Toast.LENGTH_SHORT).show();
     }
     public void onTrigger4ButtonClicked(View v) {
-        SportEvent event = new SportEvent("FOOTBALL", "PENN_STATE",
-                                            "WIN", "42", "39");
+        EditText sport, eTeam, score, eScore;
+        sport = findViewById(R.id.Sport);
+        eTeam = findViewById(R.id.OpponentName);
+        score = findViewById(R.id.PittScore);
+        eScore = findViewById(R.id.OpponentScore);
+
+        String sSport, sETeam, sScore, sEScore, sWin;
+        sSport = sport.getText().toString();
+        sETeam = eTeam.getText().toString();
+        sScore = score.getText().toString();
+        sEScore = eScore.getText().toString();
+        int iScore, iEScore;
+        iScore = Integer.parseInt(sScore);
+        iEScore = Integer.parseInt(sEScore);
+        if (iScore > iEScore) {
+            sWin = "WIN";
+        } else if (iScore == iEScore) {
+            sWin = "DRAW";
+        } else {
+            sWin = "LOSS";
+        }
+
+
+        SportEvent event;
+        event = new SportEvent(sSport, sETeam, sWin, sScore, sEScore);
+        //= new SportEvent("FOOTBALL", "PENN_STATE","WIN", "42", "39");
+
+
         String json = SportEvent.toJsonString(event);
 
         Intent intent = new Intent();
