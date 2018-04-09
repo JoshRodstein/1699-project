@@ -32,7 +32,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".PittWeather"
+        <activity
+            android:name=".PittWeather"
             android:label="@string/title_activity_pitt_weather"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -50,6 +51,15 @@
                 <action android:name="team_1.trigger_4" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name=".WeatherService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="team_1.trigger_3"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

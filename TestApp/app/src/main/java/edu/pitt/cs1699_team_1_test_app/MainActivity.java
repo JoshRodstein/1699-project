@@ -6,6 +6,9 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +21,7 @@ import java.util.List;
 import edu.pitt.cs1699_team_1_test_app.event.BuildingStateEvent;
 import edu.pitt.cs1699_team_1_test_app.event.SportEvent;
 import edu.pitt.cs1699_team_1_test_app.event.UserEnterEvent;
+import edu.pitt.cs1699_team_1_test_app.event.WeatherEvent;
 
 public class MainActivity extends AppCompatActivity implements ServiceConnection {
     private static final String APP_PACKAGE_NAME = "group1.pittapi";
@@ -111,7 +115,17 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
-
+        WeatherEvent e = new WeatherEvent("75", "RAIN");
+        Messenger messenger = new Messenger(service);
+        Message weatherMessage = Message.obtain();
+        Bundle data = new Bundle();
+        data.putString("info", WeatherEvent.toJsonString(e));
+        weatherMessage.setData(data);
+        try {
+            messenger.send(weatherMessage);
+        } catch (RemoteException ex) {
+            Toast.makeText(this, "Failed to send trigger 3 to remote service :(", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
