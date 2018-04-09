@@ -70,8 +70,8 @@ public class ScoresAdapter extends BaseAdapter {
             holder.oppName.setVisibility(View.GONE);
         } else {
             holder.oppName.setText(searchArrayList.get(position).getOppName());
-            holder.oppName.setVisibility(View.GONE);
-            holder.oppLogo.setVisibility(View.VISIBLE);
+            holder.oppName.setVisibility(View.VISIBLE);
+            holder.oppLogo.setVisibility(View.GONE);
         }
 
         return convertView;
