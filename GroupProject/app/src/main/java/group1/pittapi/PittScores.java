@@ -54,7 +54,12 @@ public class PittScores extends AppCompatActivity {
         setContentView(R.layout.activity_pitt_scores);
 
         anonSignIn();
-        getLogoURLs();
+
+        File file = getApplicationContext().getFileStreamPath(Key + ".png");
+        if (!getApplicationContext().getFileStreamPath("PITT.png").exists()){
+            Log.w("getLogoURLs", "Logos not present in internal storage: downloading now...");
+            getLogoURLs();
+        }
 
         ArrayList<ScoreData> scoreData;
 
@@ -164,35 +169,30 @@ public class PittScores extends AppCompatActivity {
         DatabaseReference dbRef = database.getReference(LOGO_ROOT);
         DatabaseReference accNode = dbRef.child("ACC").getRef();
 
-        accNode.addValueEventListener(new com.google.firebase.database.ValueEventListener() {
-            ArrayList<KeyPair> URL_List = new ArrayList<>();
+        accNode.addListenerForSingleValueEvent(new com.google.firebase.database.ValueEventListener() {
+            HashMap<String, String> URL_Map = new HashMap<>();
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.w("In Event LIStener", "PRE DB GRAB");
+
+                Log.w("In Event Listener", "Logo key:val grab");
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    URL_List.add(new KeyPair(child.getKey(), child.getValue().toString()));
+                    URL_Map.put(child.getKey(), child.getValue().toString());
                     Log.w(DL_LOGO, child.getKey() + " : " + child.getValue());
                 }
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
 
-                try {
-                    String key, value;
-                    for(int i = 0; i < URL_List.size(); i++){
-                        key = URL_List.get(i).getKey();
-                        value = URL_List.get(i).getValue();
-                        Log.w("Value: ", String.valueOf(i) + "\n");
-                        URL url = new URL(value.toString());
-                        Key = key;
-                        new DownloadLogos().execute(key, value);
-                    }
-
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
+                /* TODO: created counter 'i' as workaround for hashmap infinite-loop
+                   TODO: Will find more elegant solution. But this works for now.  */
+                String value;
+                int i = 0;
+                for (String key : URL_Map.keySet()){
+                    value = URL_Map.get(key);
+                    new DownloadAndSaveLogos().execute(key, value);
+                    if(i < URL_Map.size()){ i++; }
+                    else { break; }
                 }
-            }
 
+            }
 
             @Override
             public void onCancelled(DatabaseError error) {
@@ -202,7 +202,7 @@ public class PittScores extends AppCompatActivity {
         });
     }
 
-    private class DownloadLogos extends AsyncTask<String, Void, Bitmap> {
+    private class DownloadAndSaveLogos extends AsyncTask<String, Void, Bitmap> {
         protected void onPreExecute(){}
 
         Bitmap bitmap = null;
@@ -210,7 +210,6 @@ public class PittScores extends AppCompatActivity {
         protected Bitmap doInBackground(String... keyVal) {
 
             Log.w("doInBackground:", keyVal[1].toString());
-            // for(int i = 0; i < url.length; i++){
             try {
                 URL url = new URL(keyVal[1].toString());
                 bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
@@ -224,9 +223,11 @@ public class PittScores extends AppCompatActivity {
         }
 
         protected void onPostExecute(Bitmap result){
+            // save image to internal storage
             Log.w("Save Image:", result.toString() + ":" + Key + ".png");
             saveImage(getApplicationContext(), result, Key + ".png");
 
+            // verify that image has been stored succesfully
             File file = getApplicationContext().getFileStreamPath(Key + ".png");
             if (file.exists()) Log.w("file", Key + ".png exists!!!");
         }
