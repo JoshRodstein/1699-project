@@ -58,13 +58,25 @@
         android:inputType="textPersonName"
         android:text="Other Team" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pitt Score" />
+
     <EditText
         android:id="@+id/PittScore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
-        android:text="Pitt Score" />
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Opponent Score" />
 
     <EditText
         android:id="@+id/OpponentScore"
@@ -72,6 +84,6 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
-        android:text="Opponent Score" />
+        android:text="0" />
 
 </LinearLayout>

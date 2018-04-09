@@ -61,58 +61,58 @@ public class PittScores extends AppCompatActivity {
             getLogoURLs();
         }
 
-        ArrayList<ScoreData> scoreData;
-
-        final ListView lv1 = (ListView) findViewById(R.id.scores_list_view);
-
-        try {
-            // Gets info of game
-            Bundle extras = getIntent().getExtras();
-            ScoreData sd = new ScoreData();
-            sd.setPittScore(Integer.parseInt(extras.getString("PittScore")));
-            sd.setOppScore(Integer.parseInt(extras.getString("OppScore")));
-            try {
-                sd.setOppName(extras.getString("OppName"));
-            } catch (Exception e){
-                Log.w("SET_OPP_NAME", e.toString());
-            }
-
-            //Shows dialog:
-            // Cancel button: closes this activity
-            // See More button: lets them view the scores we got from the intent
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Sports Update").setMessage(String.format(Locale.US,
-                    "New update to %s game against %s.",
-                    extras.getString("Sport"), sd.getOppName()));
-
-            builder.setPositiveButton("See More", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finishWrapper();
-                    dialog.dismiss();
-                }
-            });
-            AlertDialog dialog = builder.create();
-            dialog.show();
-
-            // Add game to list
-            scoreData = new ArrayList<>();
-            scoreData.add(sd);
-
-
-            // TODO : Here we may add more games that we have in storage.
-        } catch (NullPointerException e) {
-            // If this Activity is started by a badly formatted intent,
-            // it will show the default list.
-            scoreData = getScoreData();
-        }
-
-        lv1.setAdapter(new ScoresAdapter(this, scoreData));
+//        ArrayList<ScoreData> scoreData;
+//
+//        final ListView lv1 = (ListView) findViewById(R.id.scores_list_view);
+//
+//        try {
+//            // Gets info of game
+//            Bundle extras = getIntent().getExtras();
+//            ScoreData sd = new ScoreData();
+//            sd.setPittScore(Integer.parseInt(extras.getString("PittScore")));
+//            sd.setOppScore(Integer.parseInt(extras.getString("OppScore")));
+//            try {
+//                sd.setOppName(extras.getString("OppName"));
+//            } catch (Exception e){
+//                Log.w("SET_OPP_NAME", e.toString());
+//            }
+//
+//            //Shows dialog:
+//            // Cancel button: closes this activity
+//            // See More button: lets them view the scores we got from the intent
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setTitle("Sports Update").setMessage(String.format(Locale.US,
+//                    "New update to %s game against %s.",
+//                    extras.getString("Sport"), sd.getOppName()));
+//
+//            builder.setPositiveButton("See More", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    dialog.dismiss();
+//                }
+//            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    finishWrapper();
+//                    dialog.dismiss();
+//                }
+//            });
+//            AlertDialog dialog = builder.create();
+//            dialog.show();
+//
+//            // Add game to list
+//            scoreData = new ArrayList<>();
+//            scoreData.add(sd);
+//
+//
+//            // TODO : Here we may add more games that we have in storage.
+//        } catch (NullPointerException e) {
+//            // If this Activity is started by a badly formatted intent,
+//            // it will show the default list.
+//            scoreData = getScoreData();
+//        }
+//
+//        lv1.setAdapter(new ScoresAdapter(this, scoreData));
 
 
         // Button for trigger
@@ -332,6 +332,69 @@ public class PittScores extends AppCompatActivity {
 
     public void onResume(){
         super.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setList();
+    }
+
+    public void setList() {
+
+
+        ArrayList<ScoreData> scoreData;
+
+        final ListView lv1 = (ListView) findViewById(R.id.scores_list_view);
+
+        try {
+            // Gets info of game
+            Bundle extras = getIntent().getExtras();
+            ScoreData sd = new ScoreData();
+            sd.setPittScore(Integer.parseInt(extras.getString("PittScore")));
+            sd.setOppScore(Integer.parseInt(extras.getString("OppScore")));
+            try {
+                sd.setOppName(extras.getString("OppName"));
+            } catch (Exception e){
+                Log.w("SET_OPP_NAME", e.toString());
+            }
+
+            //Shows dialog:
+            // Cancel button: closes this activity
+            // See More button: lets them view the scores we got from the intent
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Sports Update").setMessage(String.format(Locale.US,
+                    "New update to %s game against %s.",
+                    extras.getString("Sport"), sd.getOppName()));
+
+            builder.setPositiveButton("See More", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finishWrapper();
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            // Add game to list
+            scoreData = new ArrayList<>();
+            scoreData.add(sd);
+
+
+            // TODO : Here we may add more games that we have in storage.
+        } catch (NullPointerException e) {
+            // If this Activity is started by a badly formatted intent,
+            // it will show the default list.
+            scoreData = getScoreData();
+        }
+
+        lv1.setAdapter(new ScoresAdapter(this, scoreData));
     }
 
 }
