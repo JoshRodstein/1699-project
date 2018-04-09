@@ -19,12 +19,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"/>
-    <TextView android:id="@+id/vs"
+
+    <TextView
+        android:id="@+id/vs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/vs"
         android:layout_gravity="center"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:text="@string/vs"
+        android:textAlignment="center" />
     <TextView android:id="@+id/oppScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,6 +36,13 @@
     <TextView android:id="@+id/oppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"/>
+    <ImageView android:id="@+id/oppLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/pittlogo"
         android:layout_gravity="center"
         android:layout_weight="1"/>
 </LinearLayout>

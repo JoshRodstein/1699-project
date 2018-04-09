@@ -1,6 +1,8 @@
 package group1.pittapi;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -16,12 +19,13 @@ import java.util.ArrayList;
 
 public class ScoresAdapter extends BaseAdapter {
     private static ArrayList<ScoreData> searchArrayList;
-
+    private Context appContext;
     private LayoutInflater mInflater;
 
     public ScoresAdapter(Context context, ArrayList<ScoreData> results) {
         searchArrayList = results;
         mInflater = LayoutInflater.from(context);
+        this.appContext = context;
     }
 
     public int getCount() {
@@ -45,6 +49,7 @@ public class ScoresAdapter extends BaseAdapter {
             holder.pittScore = (TextView) convertView.findViewById(R.id.pittScore);
             holder.vs = (TextView) convertView.findViewById(R.id.vs);
             holder.oppScore = (TextView) convertView.findViewById(R.id.oppScore);
+            holder.oppLogo = (ImageView) convertView.findViewById(R.id.oppLogo);
             holder.oppName = (TextView) convertView.findViewById(R.id.oppName);
 
             convertView.setTag(holder);
@@ -52,10 +57,22 @@ public class ScoresAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+
         holder.pittScore.setText("" + searchArrayList.get(position).getPittScore());
         holder.oppScore.setText("" + searchArrayList.get(position).getOppScore());
-        holder.oppName.setText(searchArrayList.get(position).getOppName());
 
+        String opponent = searchArrayList.get(position).getOppName();
+        File file = appContext.getFileStreamPath(opponent + ".png");
+        if (file.exists()) {
+            Log.w("file", opponent + ".png exists!!!");
+            holder.oppLogo.setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+            holder.oppLogo.setVisibility(View.VISIBLE);
+            holder.oppName.setVisibility(View.GONE);
+        } else {
+            holder.oppName.setText(searchArrayList.get(position).getOppName());
+            holder.oppName.setVisibility(View.GONE);
+            holder.oppLogo.setVisibility(View.VISIBLE);
+        }
 
         return convertView;
     }
@@ -66,6 +83,7 @@ public class ScoresAdapter extends BaseAdapter {
         TextView vs;
         TextView oppScore;
         TextView oppName;
+        ImageView oppLogo;
     }
 }
 

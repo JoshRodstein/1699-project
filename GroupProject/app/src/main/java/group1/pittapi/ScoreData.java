@@ -30,6 +30,7 @@ public class ScoreData {
     public void setOppName(String name) {
         this.oppName = name;
 
+        // I know... this doesnt make sense... whatever
         for(team enumName : team.values()) {
             if (name.equalsIgnoreCase(enumName.toString())){
                 oppName = enumName.toString();
