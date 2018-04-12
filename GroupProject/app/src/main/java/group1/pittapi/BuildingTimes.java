@@ -1,10 +1,13 @@
 package group1.pittapi;
 
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Random;
 import java.util.Scanner;
 
 public class BuildingTimes extends AppCompatActivity {
@@ -52,6 +56,10 @@ public class BuildingTimes extends AppCompatActivity {
          */
 
         lv1.setAdapter(new BuildingAdapter(this, buildingDataList)); // populates ListView
+    }
+
+    public void triggerNextApp() {
+
     }
 
     public void anonSignIn(){
@@ -150,6 +158,30 @@ public class BuildingTimes extends AppCompatActivity {
     public void onResume(){
         super.onResume();
     }
+
+    /**
+     * This function demonstrates how to use the seed trigger.
+     * @param v
+     */
+    public void tiggerNextApp(View v)
+    {
+        Random r = new Random(System.currentTimeMillis());
+        seedTrigger(r.nextInt());
+    }
+    /**
+     * Simply pass a seed to the next application and it will trigger the next app
+     * @param randomNum A random number to be sent
+     */
+    public void seedTrigger(int randomNum)
+    {
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName("com.pavel.cs1699_team22", "com.pavel.cs1699_team22.LogInActivity"));
+        Bundle bundle = new Bundle();
+        bundle.putString("seed", randomNum + "");
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
 
 }
 

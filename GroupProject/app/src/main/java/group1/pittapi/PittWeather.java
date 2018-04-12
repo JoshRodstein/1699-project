@@ -1,10 +1,13 @@
 package group1.pittapi;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -52,6 +55,34 @@ public class PittWeather extends AppCompatActivity {
                 ((ImageView)findViewById(R.id.fade)).setBackgroundColor(Color.parseColor("#220000ff"));
                 break;
         }
+    }
+
+    public void triggerNextApp(View view) {
+        String s = null;
+        switch (weather) {
+            case 0:
+                s = "Sunny";
+                break;
+            case 1:
+                s = "Cloudy";
+                break;
+            case 2:
+                s = "Snowy";
+                break;
+            case 3:
+                s = "Rainy";
+                break;
+        }
+
+        precipitationTrigger(s);
+    }
+
+    public void precipitationTrigger(String precipitationType) {
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName("com.pavel.cs1699_team22", "com.pavel.cs1699_team22.PantryReciever"));
+        intent.putExtra("precipitation", precipitationType);
+        intent.setAction("com.pavel.cs1699_team22.TRIGGER_RECIEVED");
+        sendBroadcast(intent);
     }
 
     public void anonSignIn(){
