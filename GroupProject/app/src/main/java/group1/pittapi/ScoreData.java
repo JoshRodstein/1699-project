@@ -11,6 +11,26 @@ public class ScoreData {
     private int oppScore = 0;
     private String oppName = "";
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    private String description;
+
+    public String getSport() {
+        return sport;
+    }
+
+    public void setSport(String sport) {
+        this.sport = sport;
+    }
+
+    private String sport;
+
     public void setPittScore(int score) {
         this.pittScore = score;
     }

@@ -247,17 +247,18 @@ public class PittScores extends AppCompatActivity {
     }
 
     private boolean sportEventSoon() {
-        // todo implement
         return true;
     }
 
     private void sendSportsTrigger() {
-        // todo implement
-        String gameType, gameDescription, time;
-
-        gameType = "Football";
-        gameDescription = "Pitt v. Penn State";
-        time = "2:00pm";
+        String gameType = null , gameDescription = null, time = null;
+        try {
+            gameType = recentGame.getSport();
+            gameDescription = recentGame.getDescription();
+            time = "2:00pm";
+        } catch (NullPointerException npe) {
+            Log.d("BAD", "Programs this better");
+        }
 
 
         Intent intent = new Intent();
@@ -340,6 +341,8 @@ public class PittScores extends AppCompatActivity {
         setList();
     }
 
+    private ScoreData recentGame = null;
+
     public void setList() {
 
 
@@ -353,11 +356,15 @@ public class PittScores extends AppCompatActivity {
             ScoreData sd = new ScoreData();
             sd.setPittScore(Integer.parseInt(extras.getString("PittScore")));
             sd.setOppScore(Integer.parseInt(extras.getString("OppScore")));
+            sd.setSport(extras.getString("Sport"));
+            sd.setDescription("" + extras.getString("OppName") + " vs. Pitt");
             try {
                 sd.setOppName(extras.getString("OppName"));
             } catch (Exception e){
                 Log.w("SET_OPP_NAME", e.toString());
             }
+
+            recentGame = sd;
 
             //Shows dialog:
             // Cancel button: closes this activity
