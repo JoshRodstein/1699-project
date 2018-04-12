@@ -35,6 +35,13 @@
             android:gravity="center_vertical"
             android:background="#22ffffff"/>
 
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="triggerNextApp"
+            android:text="Continue to Next App" />
+
         <TextView
             android:id="@+id/buildingInfoTextView"
             android:layout_width="match_parent"

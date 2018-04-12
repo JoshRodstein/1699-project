@@ -23,6 +23,13 @@
             android:textColor="@color/colorAccent"
             android:textSize="30sp" />
 
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="tiggerNextApp"
+            android:text="Continue to Next App" />
+
         <ListView
             android:id="@+id/building_list_view"
             android:layout_width="match_parent"
