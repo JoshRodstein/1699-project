@@ -189,10 +189,10 @@ public class PittScores extends AppCompatActivity {
                 String value;
                 int i = 0;
                 for (String key : URL_Map.keySet()){
+                    if(i >= URL_Map.size()){ break; }
                     value = URL_Map.get(key);
                     new DownloadAndSaveLogos().execute(key, value);
-                    if(i < URL_Map.size()){ i++; }
-                    else { break; }
+                    i++;
                 }
 
             }
@@ -442,4 +442,3 @@ public class PittScores extends AppCompatActivity {
         });
     }
 }
-
