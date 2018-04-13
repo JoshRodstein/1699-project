@@ -418,7 +418,7 @@ public class PittScores extends AppCompatActivity {
 
     public void getLastTenGamesFromFirebase(final ArrayList<ScoreData> scoreDataArrayList) {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        Query query = db.child(SCORE_HISTORY).orderByKey().limitToFirst(10);
+        Query query = db.child(SCORE_HISTORY).orderByKey().limitToLast(10);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
