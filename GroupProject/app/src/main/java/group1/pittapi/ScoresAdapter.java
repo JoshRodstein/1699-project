@@ -57,6 +57,9 @@ public class ScoresAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        holder.imageView.setImageBitmap(BitmapFactory.decodeResource(appContext.getResources(),
+                R.drawable.pittlogo));
+
 
         holder.pittScore.setText("" + searchArrayList.get(position).getPittScore());
         holder.oppScore.setText("" + searchArrayList.get(position).getOppScore());

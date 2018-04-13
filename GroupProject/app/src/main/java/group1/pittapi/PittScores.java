@@ -26,6 +26,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.io.BufferedInputStream;
@@ -37,7 +39,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 
@@ -105,7 +109,6 @@ public class PittScores extends AppCompatActivity {
 //            scoreData.add(sd);
 //
 //
-//            // TODO : Here we may add more games that we have in storage.
 //        } catch (NullPointerException e) {
 //            // If this Activity is started by a badly formatted intent,
 //            // it will show the default list.
@@ -393,8 +396,7 @@ public class PittScores extends AppCompatActivity {
             scoreData = new ArrayList<>();
             scoreData.add(sd);
 
-
-            // TODO : Here we may add more games that we have in storage.
+            getLastTenGamesFromFirebase(scoreData);
         } catch (NullPointerException e) {
             // If this Activity is started by a badly formatted intent,
             // it will show the default list.
@@ -404,5 +406,40 @@ public class PittScores extends AppCompatActivity {
         lv1.setAdapter(new ScoresAdapter(this, scoreData));
     }
 
+    private static final String SCORE_HISTORY = "ScoreHistory";
+
+    public void sendRecentGameToFirebase() {
+        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference scoreHistory = firebaseDatabase.child(SCORE_HISTORY);
+
+        scoreHistory.child(Long.toString(System.currentTimeMillis()))
+            .setValue(recentGame);
+    }
+
+    public void getLastTenGamesFromFirebase(final ArrayList<ScoreData> scoreDataArrayList) {
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        Query query = db.child(SCORE_HISTORY).orderByKey().limitToFirst(10);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    ScoreData game = child.getValue(ScoreData.class);
+                    scoreDataArrayList.add(game);
+                }
+
+                Collections.reverse(scoreDataArrayList);
+                scoreDataArrayList.add(0, scoreDataArrayList.remove(scoreDataArrayList.size() - 1));
+
+                ListView listView = findViewById(R.id.scores_list_view);
+                listView.setAdapter(new ScoresAdapter(getApplicationContext(), scoreDataArrayList));
+                sendRecentGameToFirebase();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }
 
