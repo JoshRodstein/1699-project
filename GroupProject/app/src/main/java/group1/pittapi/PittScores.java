@@ -247,6 +247,8 @@ public class PittScores extends AppCompatActivity {
             Log.d("saveImage", "Exception 2, Something went wrong!");
             e.printStackTrace();
         }
+
+        updateArray();
     }
 
     private boolean sportEventSoon() {
@@ -416,6 +418,8 @@ public class PittScores extends AppCompatActivity {
             .setValue(recentGame);
     }
 
+    private ArrayList<ScoreData> listThatWasUsed = null;
+
     public void getLastTenGamesFromFirebase(final ArrayList<ScoreData> scoreDataArrayList) {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         Query query = db.child(SCORE_HISTORY).orderByKey().limitToLast(10);
@@ -432,6 +436,7 @@ public class PittScores extends AppCompatActivity {
 
                 ListView listView = findViewById(R.id.scores_list_view);
                 listView.setAdapter(new ScoresAdapter(getApplicationContext(), scoreDataArrayList));
+                listThatWasUsed = scoreDataArrayList;
                 sendRecentGameToFirebase();
             }
 
@@ -440,5 +445,11 @@ public class PittScores extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void updateArray() {
+        if (listThatWasUsed == null) return;
+        ListView listView = findViewById(R.id.scores_list_view);
+        listView.setAdapter(new ScoresAdapter(this, listThatWasUsed));
     }
 }
