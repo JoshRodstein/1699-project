@@ -1,10 +1,12 @@
 package group1.pittapi;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -42,6 +44,9 @@ public class BuildingAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.buildingName = (TextView) convertView.findViewById(R.id.buildingName);
             holder.buildingHours = (TextView) convertView.findViewById(R.id.buildingHours);
+            holder.buildingClosed = (TextView) convertView.findViewById(R.id.buildingClosed);
+            holder.buildingOpen = (LinearLayout) convertView.findViewById(R.id.buildingOpen);
+
 
             convertView.setTag(holder);
         } else {
@@ -50,7 +55,12 @@ public class BuildingAdapter extends BaseAdapter {
 
         holder.buildingName.setText(searchArrayList.get(position).getBuildingName());
         holder.buildingHours.setText(searchArrayList.get(position).getBuildingHours());
+        if(!searchArrayList.get(position).checkHours()) {
+            holder.buildingOpen.setBackgroundColor(Color.parseColor("#aaaaaaaa"));
+            holder.buildingClosed.setVisibility(View.VISIBLE);
 
+
+        }
 
         return convertView;
     }
@@ -58,6 +68,8 @@ public class BuildingAdapter extends BaseAdapter {
     static class ViewHolder {
         TextView buildingName;
         TextView buildingHours;
+        TextView buildingClosed;
+        LinearLayout buildingOpen;
     }
 }
 

@@ -11,8 +11,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,11 +41,31 @@ public class Building_Info extends AppCompatActivity {
             String info = getIntent().getExtras().getString("info");
             Gson gson = new Gson();
             UserEnterEvent uee = gson.fromJson(info, UserEnterEvent.class);
-
+            switch (uee.building_name){
+                case "SENNOT":
+                    ((ImageView) findViewById(R.id.buildingImageView)).setImageDrawable(getResources().getDrawable(R.drawable.sennott));
+                    ((TextView) findViewById(R.id.buildingTextView)).setText("Sennott Square");
+                    ((TextView) findViewById(R.id.buildingInfoTextView)).setText(getResources().getString(R.string.sennott_building_info));
+                    break;
+                case "HILLMAN":
+                    ((ImageView) findViewById(R.id.buildingImageView)).setImageDrawable(getResources().getDrawable(R.drawable.hillman));
+                    ((TextView) findViewById(R.id.buildingTextView)).setText("Hillman Library");
+                    ((TextView) findViewById(R.id.buildingInfoTextView)).setText(getResources().getString(R.string.hillman_building_info));
+                    break;
+                case "CATHY":
+                    ((ImageView) findViewById(R.id.buildingImageView)).setImageDrawable(getResources().getDrawable(R.drawable.cl));
+                    ((TextView) findViewById(R.id.buildingTextView)).setText("Cathedral of Learning");
+                    ((TextView) findViewById(R.id.buildingInfoTextView)).setText(getResources().getString(R.string.cathy_building_info));
+                    break;
+            }
             // TODO : Depending on the value of uee.building_name we will show the appropriate info.
         } catch (Exception e) {
+            ((ImageView) findViewById(R.id.buildingImageView)).setImageDrawable(getResources().getDrawable(R.drawable.sennott));
+            ((TextView) findViewById(R.id.buildingTextView)).setText("Sennott Square");
+            ((TextView) findViewById(R.id.buildingInfoTextView)).setText(getResources().getString(R.string.sennott_building_info));
             e.printStackTrace();
         }
+//        ((TextView) findViewById(R.id.buildingInfoTextView)).setMovementMethod(new ScrollingMovementMethod());
 
 
     }

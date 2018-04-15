@@ -96,7 +96,7 @@ public class BuildingTimes extends AppCompatActivity {
 
         BuildingData sr1 = new BuildingData();
         sr1.setBuildingName("Building Name");
-        sr1.setBuildingHours("9:00am - 5:00pm");
+        sr1.setBuildingHours("1:00pm - 5:00pm");
         results.add(sr1);
 
         sr1 = new BuildingData();
