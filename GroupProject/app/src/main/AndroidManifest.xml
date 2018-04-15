@@ -60,6 +60,9 @@
                 <action android:name="team_1.trigger_3"/>
             </intent-filter>
         </service>
+        <provider
+            android:authorities="group1.pittapi.BuildingHoursContentProvider"
+            android:name=".BuildingHoursContentProvider"/>
     </application>
 
 </manifest>

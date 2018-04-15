@@ -3,6 +3,8 @@ package group1.pittapi;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
@@ -36,7 +39,7 @@ public class BuildingTimes extends AppCompatActivity {
 
         final ListView lv1 = (ListView) findViewById(R.id.building_list_view); // gets listview
 
-        ArrayList<BuildingData> buildingDataList;
+        List<BuildingData> buildingDataList;
 
         try {
             // Gets building info
@@ -44,18 +47,13 @@ public class BuildingTimes extends AppCompatActivity {
             Gson gson = new Gson();
             BldgStateEvent bse = gson.fromJson(info, BldgStateEvent.class);
 
-            buildingDataList = new ArrayList<>();
-            buildingDataList.add(new BuildingData(bse.building_name, bse.hoursString()));
+            buildingDataList = getBuildingData();
         } catch (NullPointerException e) {
             // Puts default info if this activity was started by opening the app
             buildingDataList = getBuildingData();
         }
 
-        /*
-         * TODO: Here goes a for loop populating our list with more buildings, possibly from a local db.
-         */
-
-        lv1.setAdapter(new BuildingAdapter(this, buildingDataList)); // populates ListView
+        lv1.setAdapter(new BuildingAdapter(this, (ArrayList)buildingDataList)); // populates ListView
     }
 
     public void triggerNextApp() {
@@ -91,30 +89,20 @@ public class BuildingTimes extends AppCompatActivity {
         }
     }
 
-    private ArrayList<BuildingData> getBuildingData(){
-        ArrayList<BuildingData> results = new ArrayList<BuildingData>();
+    private List<BuildingData> getBuildingHoursFromContentProvider() {
+        Uri buildingHours = Uri.parse("content://" + BuildingHoursContentProvider.PROVIDER_NAME + "/building_hours");
+        Cursor c = getContentResolver().query(buildingHours, new String[0], null, null, null, null);
+        List<BuildingData> times = new ArrayList<>();
+        while(c.moveToNext()) {
+            String buildingName = c.getString(c.getColumnIndex(BuildingHoursDatabaseHelper.BuildingHoursEntry.COLUMN_NAME_BUILDING));
+            String hours        = c.getString(c.getColumnIndex(BuildingHoursDatabaseHelper.BuildingHoursEntry.COLUMN_NAME_HOURS));
+            times.add(new BuildingData(buildingName, hours));
+        }
+        return times;
+    }
 
-        BuildingData sr1 = new BuildingData();
-        sr1.setBuildingName("Building Name");
-        sr1.setBuildingHours("9:00am - 5:00pm");
-        results.add(sr1);
-
-        sr1 = new BuildingData();
-        sr1.setBuildingName("Building Name");
-        sr1.setBuildingHours("9:00am - 5:00pm");
-        results.add(sr1);
-
-        sr1 = new BuildingData();
-        sr1.setBuildingName("Building Name");
-        sr1.setBuildingHours("9:00am - 5:00pm");
-        results.add(sr1);
-
-        sr1 = new BuildingData();
-        sr1.setBuildingName("Building Name");
-        sr1.setBuildingHours("9:00am - 5:00pm");
-        results.add(sr1);
-
-        return results;
+    private List<BuildingData> getBuildingData(){
+        return getBuildingHoursFromContentProvider();
     }
 
     private class BldgStateEvent {
