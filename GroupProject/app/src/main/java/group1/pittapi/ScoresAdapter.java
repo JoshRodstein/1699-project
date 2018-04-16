@@ -51,6 +51,7 @@ public class ScoresAdapter extends BaseAdapter {
             holder.oppScore = (TextView) convertView.findViewById(R.id.oppScore);
             holder.oppLogo = (ImageView) convertView.findViewById(R.id.oppLogo);
             holder.oppName = (TextView) convertView.findViewById(R.id.oppName);
+            holder.sport = (TextView) convertView.findViewById(R.id.sports_name);
 
             convertView.setTag(holder);
         } else {
@@ -60,7 +61,7 @@ public class ScoresAdapter extends BaseAdapter {
         holder.imageView.setImageBitmap(BitmapFactory.decodeResource(appContext.getResources(),
                 R.drawable.pittlogo));
 
-
+        holder.sport.setText(searchArrayList.get(position).getSport());
         holder.pittScore.setText("" + searchArrayList.get(position).getPittScore());
         holder.oppScore.setText("" + searchArrayList.get(position).getOppScore());
 
@@ -81,6 +82,7 @@ public class ScoresAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
+        TextView sport;
         ImageView imageView;
         TextView pittScore;
         TextView vs;
