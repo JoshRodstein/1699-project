@@ -89,7 +89,7 @@ public class BuildingTimes extends AppCompatActivity {
         }
     }
 
-    private List<BuildingData> getBuildingHoursFromContentProvider() {
+  private List<BuildingData> getBuildingHoursFromContentProvider() {
         Uri buildingHours = Uri.parse("content://" + BuildingHoursContentProvider.PROVIDER_NAME + "/building_hours");
         Cursor c = getContentResolver().query(buildingHours, new String[0], null, null, null, null);
         List<BuildingData> times = new ArrayList<>();

@@ -1,16 +1,32 @@
 <resources>
     <string name="app_name">PittAPI</string>
     <string name="title_activity_building__info">Building_Info</string>
-    <string name="building_info">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur condimentum neque quis nibh ullamcorper, non vestibulum justo facilisis.
-        Etiam gravida facilisis maximus. Donec at nisl aliquam, sollicitudin turpis in, condimentum metus.
-        Fusce tempor bibendum hendrerit. Nulla posuere, nisl id semper pretium, purus erat faucibus dolor, ut hendrerit arcu libero eget magna.
-        Donec elementum, felis sed viverra tristique, nunc purus pulvinar tellus, et aliquet odio felis nec odio.
-        Ut congue felis eget leo posuere condimentum. Integer commodo leo vitae turpis vehicula, eget porta turpis faucibus.
-        Nunc auctor congue turpis, eu ultricies sem feugiat sed. Suspendisse id metus aliquam, rhoncus elit sed, scelerisque ante.
-        Morbi et scelerisque eros. Proin in eros dui. Mauris semper, mauris eu varius commodo, arcu lacus maximus est, vel scelerisque mi purus at lectus.
-        Mauris mollis nulla at urna faucibus lacinia. Suspendisse in ligula ultrices, ullamcorper lacus feugiat, sodales sem.
-        Donec laoreet libero eros, et porta diam iaculis et.
+    <string name="cathy_building_info">
+        The Cathedral of Learning, otherwise known as the most beautiful building in the world, was built in the 1920\'s.
+        Standing at 535 feet (163 m for those weird metric people), it is the tallest educational building in the Western Hemisphere,
+        the second tallest university building in the world, and the second tallest gothic-styled building in the world. The Cathedral
+        has 30 nationality rooms, 28 of which are used for classes. Each room was dedicated to a culture that influenced the growth of
+        Pittsburgh at or around the time of the University's founding. According to audio experts, the main room of the Cathedral, known
+        Common Room, reduces sound by using acoustical tiles as the stones between the ribs of vaulting. But if you were to ask any of the
+        students, thats a load of mumbo jumbo.
+    </string>
+    <string name="sennott_building_info">
+        Sennott Square, don\'t forget the two n\'s and t\'s, was built in the early 2000\'s and was the largest University of Pittsburgh
+        building built since 1978. Quite the multipurpose building, Sennott contains 4 floors of offices and classrooms, large amounts of
+        retail space, and both over and underground parking. It currently houses Pitt\'s College of Business Administration, Department of
+        Psychology, and School of Computing and Information's Computer Science department. What many people don't know is that during
+        Halloween time, it doubles as a scary maze! Participants are tasked with finding a classroom in the building while disgruntled
+        students appear out of the depths of the mysterious networking lab. Only one person has successfully found their classroom since
+        the mazes started in 2004.
+    </string>
+    <string name="hillman_building_info">
+        Sennott Square, don\'t forget the two n\'s and t\'s, was built in the early 2000\'s and was the largest University of Pittsburgh
+        building built since 1978. Quite the multipurpose building, Sennott contains 4 floors of offices and classrooms, large amounts of
+        retail space, and both over and underground parking. It currently houses Pitt\'s College of Business Administration, Department of
+        Psychology, and School of Computing and Information's Computer Science department. What many people don't know is that during
+        Halloween time, it doubles as a scary maze! Participants are tasked with finding a classroom in the building while disgruntled
+        students appear out of the depths of the mysterious networking lab. Only one person has successfully found their classroom since
+        the mazes started in 2004.
     </string>
     <string name="title_activity_pitt_scores">PittScores</string>
     <string name="title_activity_BuildingTimes">BuildingTimes</string>
@@ -20,4 +36,5 @@
     <string name="building_title"> Building Hours </string>
     <string name="check_games">Check for Upcoming Games</string>
     <string name="continu">Continue to Next App</string>
+    <string name="closed">--CLOSED--</string>
 </resources>

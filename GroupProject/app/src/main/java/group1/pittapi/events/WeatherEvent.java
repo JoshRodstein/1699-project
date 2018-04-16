@@ -3,8 +3,8 @@ package group1.pittapi.events;
 import com.google.gson.Gson;
 
 public class WeatherEvent {
-    String temperature;
-    String weather;
+    public String temperature;
+    public String weather;
 
     public WeatherEvent(String t, String w) {
         this.temperature = t;

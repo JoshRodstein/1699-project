@@ -12,6 +12,7 @@
             android:name=".Building_Info"
             android:label="@string/title_activity_building__info"
             android:theme="@style/AppTheme.NoActionBar">
+
             <intent-filter>
                 <action android:name="team_1.trigger_1" />
 
@@ -21,7 +22,13 @@
         <activity
             android:name=".PittScores"
             android:label="@string/title_activity_pitt_scores"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".BuildingTimes"
             android:label="@string/title_activity_BuildingTimes"
@@ -36,11 +43,7 @@
             android:name=".PittWeather"
             android:label="@string/title_activity_pitt_weather"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <receiver

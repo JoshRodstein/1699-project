@@ -281,24 +281,28 @@ public class PittScores extends AppCompatActivity {
         ArrayList<ScoreData> results = new ArrayList<ScoreData>();
 
         ScoreData sr1 = new ScoreData();
+        sr1.setSport("Football");
         sr1.setPittScore(0);
         sr1.setOppScore(0);
         sr1.setOppName("ABC");
         results.add(sr1);
 
         sr1 = new ScoreData();
+        sr1.setSport("Baseball");
         sr1.setPittScore(0);
         sr1.setOppScore(0);
         sr1.setOppName("ABC");
         results.add(sr1);
 
         sr1 = new ScoreData();
+        sr1.setSport("Soccer");
         sr1.setPittScore(0);
         sr1.setOppScore(0);
         sr1.setOppName("ABC");
         results.add(sr1);
 
         sr1 = new ScoreData();
+        sr1.setSport("Track");
         sr1.setPittScore(0);
         sr1.setOppScore(0);
         sr1.setOppName("ABC");

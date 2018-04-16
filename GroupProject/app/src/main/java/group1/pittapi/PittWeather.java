@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,12 +23,14 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.concurrent.Executor;
 
+import group1.pittapi.events.WeatherEvent;
+
 public class PittWeather extends AppCompatActivity {
     /*
     sun = 0
     cloud = 1
     snow = 2
-    snow = 3
+    rain = 3
      */
     private int weather;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -38,7 +41,24 @@ public class PittWeather extends AppCompatActivity {
 
         anonSignIn();
 
-        weather = 3;
+        // get WeatherEvent from extra & populate fields based on info
+        if(!getIntent().hasExtra("info")) {
+            Toast.makeText(this, "Error: couldn't find intent with extra \"info\"", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        WeatherEvent weatherEvent = WeatherEvent.fromJsonString(getIntent().getStringExtra("info"));
+        TextView tempTextView = (TextView) findViewById(R.id.cur_temp);
+        tempTextView.setText(weatherEvent.temperature);
+
+        if(weatherEvent.weather.equals("RAIN")) {
+            weather = 3;
+        } else if(weatherEvent.weather.equals("SUN")) {
+            weather = 0;
+        } else if(weatherEvent.weather.equals("SNOW")) {
+            weather = 2;
+        } else if(weatherEvent.weather.equals("OVERCAST")) {
+            weather = 1;
+        }
         switch (weather) {
             case 0:
                 ((ImageView)findViewById(R.id.cur_weather)).setImageDrawable(getResources().getDrawable(R.drawable.sunny));
