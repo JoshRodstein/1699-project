@@ -1,0 +1,21 @@
+Alexander Howard 
+
+tasks of the team member and the top challenges and learning moments in the project. 
+
+I am very pleased with my team's dedication and our end result. This project required a great degree of communication, and through the course of this project, each team member checked in with the team and updated the team as needed.
+
+My tasks on this project included:
+	- Implementing Score History storage and retrieval with firebase
+	- Communicating with members of Teams 10 and 2, sending them information and files, and receiving their files. Telling team 10 how to trigger our app, and learning team 2's triggers
+	- Implementing the triggering mechanisms for team 2's app
+	- Adding custom fields to our test app to customize intent
+	- Implementing the receiving mechanism of our first trigger for the first version of the app
+	- Planning the app, planning the triggers, planning activities and other classes in the app, documenting our triggers, researching android and git technology.
+	- Managing the team, assigning tasks.
+
+At first, our vision for this app was not clear, but through our work, it materialized. We faced challenges planning this app because started with a weak understanding of the android ecosystem. We were not yet familiar with the components we needed in our app. By doing project 2, and working through this project, we gained a greater understanding of how to uses BroadcastRecievers and Services in our app.
+
+Another challenge was getting used to working on Github. Doing this project increased my understanding of git.
+
+Learning moments happened though team communication. Talking with each other about how we were going to implement our own parts of the app increased our understanding of Android as a whole and helped avoid some potential problems. Talking to members of other teams was also helpful in this regard. For example, in project 2 I had problems using a manifest declared receiver, but talking to my team for this project, I learned that manifest declared receivers are not supposed to work for local broadcasts, and you actually need to set up local receivers differently.
+
