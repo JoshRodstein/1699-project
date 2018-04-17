@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         setContentView(R.layout.activity_main);
     }
     public void onTrigger1ButtonClicked(View v) {
-        UserEnterEvent enterEvent = new UserEnterEvent((new Date()).toString(), "CATHEDRAL");
+        UserEnterEvent enterEvent = new UserEnterEvent((new Date()).toString(), "CATHY");
         String json = UserEnterEvent.toJsonString(enterEvent);
 
         Intent intent = new Intent();

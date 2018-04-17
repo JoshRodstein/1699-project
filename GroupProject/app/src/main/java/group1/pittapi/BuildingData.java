@@ -47,7 +47,7 @@ public class BuildingData {
         String open = buildingHours.split(" - ")[0];
         int open_hour = Integer.parseInt(open.split(":")[0]);
         String open_am_pm = open.substring(open.length() - 2, open.length());
-        if(open_am_pm.equals("pm"))
+        if(open_am_pm.equalsIgnoreCase("pm"))
             open_hour += 12;
         if(current_hour < open_hour) {
             return false;
@@ -63,7 +63,7 @@ public class BuildingData {
         String close = buildingHours.split(" - ")[1];
         int close_hour = Integer.parseInt(close.split(":")[0]);
         String close_am_pm = close.substring(close.length() - 2, close.length());
-        if(close_am_pm.equals("pm"))
+        if(close_am_pm.equalsIgnoreCase("pm"))
             close_hour += 12;
         if(current_hour > close_hour) {
             return false;
