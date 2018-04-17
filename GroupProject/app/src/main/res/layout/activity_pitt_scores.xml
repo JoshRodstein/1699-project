@@ -29,7 +29,9 @@
         <ListView
             android:id="@+id/scores_list_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
+        </ListView>
 
         <Button
             android:id="@+id/sports_trigger_button"
@@ -37,6 +39,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/continu" />
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

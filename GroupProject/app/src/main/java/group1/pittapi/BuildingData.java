@@ -60,7 +60,7 @@ public class BuildingData {
         }
 
         //check close hours
-        String close = buildingHours.split(" - ")[1];
+        String close = buildingHours.split("-")[1];
         int close_hour = Integer.parseInt(close.split(":")[0]);
         String close_am_pm = close.substring(close.length() - 2, close.length());
         if(close_am_pm.equalsIgnoreCase("pm"))
