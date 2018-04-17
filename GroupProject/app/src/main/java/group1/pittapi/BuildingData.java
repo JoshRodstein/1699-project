@@ -44,7 +44,7 @@ public class BuildingData {
         int current_hour = Integer.parseInt(dateFormat_hour.format(date));
         int current_min = Integer.parseInt(dateFormat_minute.format(date));
         //check open hours
-        String open = buildingHours.split(" - ")[0];
+        String open = buildingHours.split("-")[0];
         int open_hour = Integer.parseInt(open.split(":")[0]);
         String open_am_pm = open.substring(open.length() - 2, open.length());
         if(open_am_pm.equalsIgnoreCase("pm"))
